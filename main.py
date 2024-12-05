@@ -11,7 +11,9 @@ def calc_heuristic(node, goal):
     x_dist = ord(goal_x) - ord(cur_x)
     y_dist = int(goal_y) - int(cur_y)
 
-    return math.sqrt(x_dist + y_dist)
+    return math.sqrt(
+        abs(x_dist) + abs(y_dist)
+        )
 
 def set_default_scores(graph):
     return {node: float('inf') for node in graph}
