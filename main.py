@@ -35,12 +35,12 @@ def a_star(graph, start, goal):
             return path, scores[goal]
 
         for neighbor, cost in graph[current_node]:
-            tentative_score = scores[current_node] + int(cost)
+            current_score = scores[current_node] + int(cost)
 
-            if tentative_score < scores[neighbor]:
+            if current_score < scores[neighbor]:
                 came_from[neighbor] = current_node
-                scores[neighbor] = tentative_score
-                total_score = tentative_score + calc_heuristic(neighbor, goal)
+                scores[neighbor] = current_score
+                total_score = current_score + calc_heuristic(neighbor, goal)
                 heapq.heappush(open_set, (total_score, neighbor))
 
     return None, float('inf')
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     graph = get_graph_data(args.filename)
     tracemalloc.start()
     path, cost = a_star(graph, args.start, args.goal)
-    print(tracemalloc.get_traced_memory())
+    print(len(graph), tracemalloc.get_traced_memory()[1])
     tracemalloc.stop()
     print(f"Najkrótsza ścieżka: {path} z kosztem: {cost}")
 
